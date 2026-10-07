@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: ../video-analyser-backend
+      dockerfile: Dockerfile
+    container_name: video-analyser-backend
+    ports:
+      - "8000:8000"
+    environment:
+      COOKIES_PATH: /run/secrets/cookies.txt
+      DOWNLOAD_DIR: /app/temp
+    volumes:
+      - ../video-analyser-backend/cookies.txt:/run/secrets/cookies.txt:ro
+      - ../video-analyser-backend/temp:/app/temp
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../video-analyser-frontend/my-app
+      dockerfile: Dockerfile
+    container_name: video-analyser-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    restart: unless-stopped
