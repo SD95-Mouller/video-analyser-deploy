@@ -7,10 +7,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-      COOKIES_PATH: /run/secrets/cookies.txt
+      COOKIES_PATH: /app/temp/cookies.txt
       DOWNLOAD_DIR: /app/temp
     volumes:
-      - ../video-analyser-backend/cookies.txt:/run/secrets/cookies.txt:ro
       - ../video-analyser-backend/temp:/app/temp
     restart: unless-stopped
 
